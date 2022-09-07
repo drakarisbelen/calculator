@@ -3,8 +3,10 @@ import './App.css';
 import Button from "./components/Button"
 import Input from "./components/Input"
 import ClearButton from './components/ClearButton';
+import Logo from "./components/Logo"
 import freeCodecampLogo from "./images/FreeCodeCamp_logo.png"
 import {useState} from "react";
+import {evaluate} from "mathjs";
 
 function App() {
   const [input, setInput] = useState('');
@@ -13,17 +15,22 @@ function App() {
       //actualizo el input valor anterior concatenado con el siguiente valor
       //estoy uniendo las cadenas de caracteres
       setInput(input + val)
-  }
+  };
 
   const clearInput = () =>{
     setInput("")
-  }
+  };
+
+  const calculate = () => {
+    if (input)
+      setInput(evaluate(input))
+    else
+      alert("Ingresar valores para realizar los calculos")
+  };
 
   return (
     <div className="App">
-      <div className="freecodecamp-logo-container">
-        <img src={freeCodecampLogo} className="freecodecamp-logo" alt="freecodecamp logo"/>
-      </div>
+      <Logo/>
       <div className="calculator-container">
       <Input input ={input}/>
         <div className='row'>
@@ -45,7 +52,7 @@ function App() {
           <Button handleClick={addInput}>* </Button>
         </div>
         <div className='row' >
-          <Button handleClick={addInput}>= </Button>
+          <Button handleClick={calculate}>= </Button>
           <Button handleClick={addInput}>0 </Button>
           <Button handleClick={addInput}>. </Button>
           <Button handleClick={addInput}>/</Button>
